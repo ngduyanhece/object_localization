@@ -211,7 +211,7 @@ def training(model, X_train, X_test, y_train, y_test, data_augmentation=True):
         history = model.fit_generator(datagen.flow(X_train, y_train,
                                     batch_size=batch_size),
                                     steps_per_epoch=X_train.shape[0] // batch_size,
-                                    epochs=1,
+                                    epochs=100,
                                     validation_data=(X_test, y_test),
                                     callbacks=callbacks_list)        
     else:
