@@ -204,13 +204,13 @@ def training(model, X_train, X_test, y_train, y_test, data_augmentation=True):
         # Compute quantities required for feature-wise normalization
         # (std, mean, and principal components if ZCA whitening is applied).
         datagen.fit(X_train)
-        filepath="weights_6conv_%s.hdf5" % time.strftime("%d%m/%Y")
+        filepath="./weights_6conv_%s.hdf5" % time.strftime("%d%m/%Y")
         checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_only=True, mode='max')
         callbacks_list = [LearningRateScheduler(lr_schedule) ,checkpoint]
         history = model.fit_generator(datagen.flow(X_train, y_train,
                                     batch_size=batch_size),
                                     steps_per_epoch=X_train.shape[0] // batch_size,
-                                    epochs=100,
+                                    epochs=1,
                                     validation_data=(X_test, y_test),
                                     callbacks=callbacks_list)        
     else:
