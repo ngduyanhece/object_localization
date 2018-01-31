@@ -10,20 +10,23 @@ import sys
 import glob
 from random import shuffle
 import os
-from train import map_characters
-
+#from train import map_characters
+# map_fishes = {0: 'ALB', 1: 'BET', 2: 'DOL',
+#         3: 'LAG', 4: 'NoF', 5: 'SHARK', 6: 'YFT',
+#         7: 'ORTHER'}
+map_fishes = {0: 'DOL', 1: 'SHARK'}
 # List of already bounded pictures
 with open('./annotation.txt') as f:
     already_labeled = [k.strip().split(',')[0] for k in f.readlines()]
 
 # List of characters
-characters = list(map_characters.values())
-shuffle(characters)
+fishes = list(map_fishes.values())
+shuffle(fishes)
 
-for char in characters:
-    print('Working on %s' % char.replace('_', ' ').title())
+for fish in fishes:
+    print('Working on %s' % fish.replace('_', ' ').title())
     # all labeled (just name, no bounding box) pictures of the character
-    pics = glob.glob('./characters/%s/*.*' % char)
+    pics = glob.glob('./fishes/%s/*.*' % fish)
     shuffle(pics)
     i = 0
     for p in pics:
@@ -55,7 +58,7 @@ for char in characters:
                             line = '{0},{1},{2},{3}'.format(p, 
                                 ','.join([str(int(k)) for k in position[0]]), 
                                 ','.join([str(int(k)) for k in position[1]]),
-                                char) 
+                                fish)
 
                             # Open the annotations file to continue to write
                             target = open('annotation.txt', 'a')
@@ -77,9 +80,9 @@ for char in characters:
                 print('\nNumber of pictures with bounding box :')
                 with open('./annotation.txt') as f:
                     already_labeled = [k.strip().split(',')[5] for k in f.readlines()]
-                nb_pic_tot = {p:len([k for k in glob.glob('./characters/%s/*.*' % p)]) for p in characters} 
+                nb_pic_tot = {p:len([k for k in glob.glob('./fishes/%s/*.*' % p)]) for p in fishes}
 
-                print('\n'.join(['%s : %d/%d' % (char, nb, nb_pic_tot[char]) for char, nb in sorted(Counter(already_labeled).items(), 
+                print('\n'.join(['%s : %d/%d' % (fish, nb, nb_pic_tot[fish]) for fish, nb in sorted(Counter(already_labeled).items(),
                                                      key =lambda x:x[1], reverse=True)]))  
                 t = np.sum(list(nb_pic_tot.values()))
                 sys.exit("Total {}/{} ({}%)" .format(len(already_labeled), 
