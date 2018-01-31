@@ -21,4 +21,4 @@ Train faster RCNN t
 2.  `train_frcnn.py -p annotation.txt` : training Faster R-CNN with data from the annotation text file
 3.  `test_frcnn.py -p path/test_data/` : testing Faster R-CNN
 
-![Result picture](https://github.com/alexattia/SimpsonRecognition/blob/master/pics/bao_ve_ca_map.png)
+![Result picture](https://github.com/ngduyanhece/object_localization/tree/master/pics/bao_ve_ca_map.png)
