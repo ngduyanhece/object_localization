@@ -75,7 +75,7 @@ model_classifier.compile(optimizer=Adam(lr=1e-4), loss=[losses.class_loss_cls, l
 model_all.compile(optimizer='sgd', loss='mae')
 
 epoch_length = 1000
-num_epochs = 2000
+num_epochs = 500
 iter_num = 0
 
 losses = np.zeros((epoch_length, 5))
